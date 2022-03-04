@@ -6,13 +6,13 @@ use Source\Models\UserModel;
 
 $model = new UserModel();
 
-$user = $model->bootstrap("Félix", "Vicente", "felixvicent1303@gmail.com");
 
-if (!$model->find($user->email)) {
-  $user->save();
-} else {
-  $user = $model->find("felixvicent1303@gmail.com");
-}
+$user = $model->load(4);
+
+$user->first_name = 'Félix';
+$user->email = 'eduardo51@email.com.br';
+
+$user->save();
 
 
 echo '<pre>';
