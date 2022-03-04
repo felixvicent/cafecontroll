@@ -6,7 +6,14 @@ use Source\Models\UserModel;
 
 $model = new UserModel();
 
-$users = $model->all(10, 0);
+$user = $model->bootstrap("Félix", "Vicente", "felixvicent1303@gmail.com");
+
+if (!$model->find($user->email)) {
+  $user->save();
+} else {
+  $user = $model->find("felixvicent1303@gmail.com");
+}
+
 
 echo '<pre>';
-print_r($users);
+print_r($user);

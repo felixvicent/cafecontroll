@@ -7,8 +7,14 @@ class UserModel extends Model
   protected static $safe = ["id", "created_at", "updated_at"];
   protected static $entity = "users";
 
-  public function bootstrap()
+  public function bootstrap(string $firstName, string $lastName, string $email, string $document = null)
   {
+    $this->first_name = $firstName;
+    $this->last_name = $lastName;
+    $this->email = $email;
+    $this->document = $document;
+
+    return $this;
   }
 
   public function load(int $id, string $columns = '*')
@@ -49,6 +55,28 @@ class UserModel extends Model
 
   public function save()
   {
+    if (!$this->required()) {
+      return null;
+    }
+    if (!empty($this->id)) {
+      $userId = $this->id;
+    } else {
+      if ($this->find($this->email)) {
+        $this->message = "O e-mail já existe";
+        return null;
+      }
+
+      $userId = $this->create(self::$entity, $this->safe());
+
+      if ($this->fail()) {
+        $this->message = "Erro ao cadastrar";
+      }
+
+      $this->message = "Cadastro realizado com sucesso";
+    }
+
+    $this->data = $this->load($userId);
+    return $this;
   }
 
   public function destroy()
@@ -57,5 +85,18 @@ class UserModel extends Model
 
   private function required()
   {
+    if (empty($this->first_name) || empty($this->last_name) || empty($this->email)) {
+      $this->message = "Nome, sobrenome e email são obrigatórios";
+
+      return false;
+    }
+
+    if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+      $this->message = "Email inválido";
+
+      return false;
+    }
+
+    return true;
   }
 }
