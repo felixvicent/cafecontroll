@@ -13,3 +13,9 @@ define("CONF_DATE_BR", "d/m/Y H:i:s");
 define("CONF_DATE_APP", "Y-m-d H:i:s");
 
 define("CONF_SESSION_PATH", __DIR__ . "/../../storage/sessions/");
+
+define("CONF_MESSAGE_CLASS", "trigger");
+define("CONF_MESSAGE_INFO", "info");
+define("CONF_MESSAGE_SUCCESS", "success");
+define("CONF_MESSAGE_WARNING", "warning");
+define("CONF_MESSAGE_ERROR", "error");
