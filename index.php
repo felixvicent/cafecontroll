@@ -6,14 +6,13 @@ use Source\Models\UserModel;
 
 $model = new UserModel();
 
-
-$user = $model->load(4);
-
-$user->first_name = 'Félix';
-$user->email = 'eduardo51@email.com.br';
-
-$user->save();
-
+$list = $model->all(100, 40);
 
 echo '<pre>';
-print_r($user);
+if ($list) {
+  /** @var UserModel $user */
+  foreach ($list as $user) {
+    print_r($user);
+    $user->destroy();
+  }
+}
