@@ -1,9 +1,8 @@
 <?php
 
-namespace Source\Models;
+namespace Source\Core;
 
 use PDOException;
-use Source\Database\Connect;
 
 abstract class Model
 {
@@ -104,7 +103,7 @@ abstract class Model
     }
   }
 
-  protected function delete(string $entity, string $terms, string $params)
+  protected function delete(string $entity, string $terms, $params)
   {
     try {
       $stmt = Connect::getInstance()->prepare("DELETE FROM {$entity} WHERE {$terms}");

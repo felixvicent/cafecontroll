@@ -1,18 +1,12 @@
 <?php
 
+use Source\Models\User;
+
 require __DIR__ . "/source/autoload.php";
 
-use Source\Models\UserModel;
+$model = new User();
 
-$model = new UserModel();
-
-$list = $model->all(100, 40);
+$user = $model->load(1);
 
 echo '<pre>';
-if ($list) {
-  /** @var UserModel $user */
-  foreach ($list as $user) {
-    print_r($user);
-    $user->destroy();
-  }
-}
+print_r($user);

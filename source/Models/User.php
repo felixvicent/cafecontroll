@@ -2,7 +2,9 @@
 
 namespace Source\Models;
 
-class UserModel extends Model
+use Source\Core\Model;
+
+class User extends Model
 {
   protected static $safe = ["id", "created_at", "updated_at"];
   protected static $entity = "users";
