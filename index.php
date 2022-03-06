@@ -1,12 +1,20 @@
 <?php
 
+use Source\Core\Session;
 use Source\Models\User;
 
 require __DIR__ . "/source/autoload.php";
 
-$model = new User();
-
-$user = $model->load(1);
+$session = new Session();
+$session->set("user", 1);
+$session->regenerate();
+$session->set("stats", 255);
+$session->unset("stats");
 
 echo '<pre>';
-print_r($user);
+
+print_r([
+  $_SESSION,
+  $session->all(),
+  session_id()
+]);
